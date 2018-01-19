@@ -1,0 +1,7 @@
+Django==1.11.9
+gitdb2==2.0.3
+GitPython==2.1.8
+pkg-resources==0.0.0
+Pygments==2.2.0
+pytz==2017.3
+smmap2==2.0.3
