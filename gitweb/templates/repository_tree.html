@@ -1,0 +1,16 @@
+{% extends 'gitweb_base.html' %}
+{% load gitweb_tags %}
+
+{% block title %}Repository: {{ repository.title }} - {{ branch }} - {{ path }}{% endblock %}
+
+{% block header %}
+    <h1><a href="{% url 'gitweb_repository_list' %}">Home</a> &gt; <a href="{% url 'gitweb_repository_summary' repository.slug %}">{{ repository.title }}</a> - {{ branch }} -  {{ path }}</h1>
+{% endblock %}
+
+{% block content %}
+{% if is_blob %}
+    {% include "repository_tree_blob.html" %}
+{% else %}
+    {% include "repository_tree_list.html" %}
+{% endif %}
+{% endblock %}

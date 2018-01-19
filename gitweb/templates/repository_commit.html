@@ -1,0 +1,51 @@
+{% extends 'gitweb_base.html' %}
+{% load gitweb_tags %}
+
+{% block title %}Repository: {{ repository.title }} - Commit {{ commit.id_abbrev }}{% endblock %}
+
+{% block header %}
+    <h1><a href="{% url 'gitweb_repository_list' %}">Home</a> &gt; <a href="{% url 'gitweb_repository_summary' repository.slug %}">{{ repository.title }}</a> &gt; Commit {{ commit.id_abbrev }}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="repo_commit">
+    <h3>{{ commit.message|truncatewords:8 }}</h3>
+</div>
+<div class="repo_commit">
+    <div class="key">author</div><div class="value">{{ commit.author.name }} &lt;{{ commit.author.email }}&gt;</div>
+    <div class="value">{{ commit.authored_date|time2datetime }}</div>
+    <div class="key">committer</div><div class="value">{{ commit.committer.name }} &lt;{{ commit.committer.email }}&gt;</div>
+    <div class="value">{{ commit.committed_date|time2datetime }}</div>
+    <div class="key">commit</div><div class="value">{{ commit }} <a href="{% url 'gitweb_repository_commit_diff' repository.slug commit %}">diff</a></div>
+    {% for par in parents %}
+    <div class="key">parent</div><div class="value"><a href="{% url 'gitweb_repository_commit' repository.slug par %}">{{ par }}</a></div>
+    {% endfor %}
+</div></br>
+<div class="repo_commit_message">
+    {{ commit.message|linebreaksbr }}
+</div>
+<table class="repo_diffs">
+
+    <textarea id="x">
+    {{ diffs }}
+    </textarea>
+    <script>
+    document.getElementById('x').value.replace(/\n/g, "<br />");
+    </script>
+{#    {% for diff in commit.diffs %}#}
+{#    <tr>#}
+{#        <td>{{ diff.a_path }}</td>#}
+{#        <td>#}
+{#            {% if diff.new_file %}[new file]{% endif %}#}
+{#            {% if diff.deleted_file %}[file deleted]{% endif %}#}
+{#        </td>#}
+{#        <td>#}
+{#            {% if not diff.new_file %}#}
+{#            <a href="{% url 'gitweb_repository_commit_diff' repository.slug commit %}#{{ diff.a_commit }}">diff</a>#}
+{#            <a href="#">history</a>#}
+{#            {% endif %}#}
+{#        </td>#}
+{#    </tr>#}
+{#    {% endfor %}#}
+</table>
+{% endblock %}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {% load staticfiles %}
+
+    <link rel="icon" href="{% static "icon.png" %}" />
+
+    <title>{% block title %}Title{% endblock %}</title>
+
+    <!-- CSS -->
+    {% block css %}{% endblock %}
+    <link rel="stylesheet" href="{% static "css/gitweb.css" %}" />
+
+</head>
+<body>
+
+    <div class="header">
+        {% block header %}
+        <h1>django-gitweb</h1>
+        {% endblock %}
+    </div>
+
+    <div class="content_bg">
+        <div class="content">
+        {% block content %}
+        {% endblock %}
+        </div>
+    </div>
+
+    <div class="footer">
+        {% block footer %}
+        <h4>django-gitweb, {% now "r" %}</h4>
+        {% endblock %}
+    </div>
+
+</body>
+</html>
